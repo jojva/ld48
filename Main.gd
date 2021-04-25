@@ -19,10 +19,26 @@ const directions_vec = [
 	Vector2(0, 1),
 ]
 
+var light_source_side = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	update_light()
+
+
+func _input(e):
+	var moved = false
+	if e.is_action_pressed("ui_left"):
+		$Level0.shift(1)
+		light_source_side += 1
+		moved = true
+	if e.is_action_pressed("ui_right"):
+		$Level0.shift(-1)
+		light_source_side += 3
+		moved = true
+	if moved:
+		light_source_side %= 4
+		update_light()
 
 
 func _on_Level_updated():
@@ -32,10 +48,10 @@ func _on_Level_updated():
 func update_light():
 	var tile_light = {}
 	for r in range(TOTAL_ROWS):
-		for c in range(Level.COLS):
+		for c in range(Level.COLS * 4):
 			tile_light[Vector2(c, r)] = [false, false, false, false]
 	var direction = Directions.DOWN
-	var pos = Vector2(START_X, START_Y)
+	var pos = Vector2(START_X + Level.COLS * light_source_side, START_Y)
 	while direction != -1 and pos.y >= 0 and pos.y < TOTAL_ROWS:
 		var level = get_level(pos)
 		var res = level.propagate_light(pos, direction)
@@ -45,7 +61,7 @@ func update_light():
 			tile_light[pos][direction] = true
 		pos = step(pos, direction)
 	for r in range(TOTAL_ROWS):
-		for c in range(Level.COLS):
+		for c in range(Level.COLS * 4):
 			$Light.update_cell(c, r, tile_light[Vector2(c, r)])
 
 
@@ -55,5 +71,5 @@ func get_level(pos):
 
 func step(pos, direction):
 	var new_pos = pos + directions_vec[direction]
-	new_pos.x = int(new_pos.x + Level.COLS) % Level.COLS
+	new_pos.x = int(new_pos.x + Level.COLS * 4) % (Level.COLS * 4)
 	return new_pos

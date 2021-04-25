@@ -6,7 +6,7 @@ signal updated
 
 
 const ROWS = 5
-const COLS = 20
+const COLS = 5
 
 
 const light_input = [
@@ -37,7 +37,7 @@ var light_output_mirror = [
 
 
 func propagate_light(pos, direction):
-	pos.y = int(pos.y) % ROWS
+	pos = to_local_cell(pos)
 	var tile_type = $Circuit.get_cellv(pos)
 	var transposed: int = $Circuit.is_cell_transposed(pos.x, pos.y)
 	var x_flipped = $Circuit.is_cell_x_flipped(pos.x, pos.y)
@@ -61,6 +61,40 @@ func propagate_light(pos, direction):
 		 out_direction
 	]
 
+
+func to_local_cell(pos):
+	pos.x -= position.x / $Circuit.cell_size.x
+	pos.y = int(pos.y) % ROWS
+	return pos
+
+
+func shift(direction):
+	position.x += direction * COLS * $Circuit.cell_size.x
+	var offset_src
+	var offset_dst
+	if direction > 0:
+		offset_dst = Vector2(0, 0)
+		offset_src = Vector2(COLS * 4, 0)
+	else:
+		offset_src = Vector2(-COLS, 0)
+		offset_dst =Vector2(COLS * 3, 0)
+	for r in range(ROWS):
+		for c in range(COLS):
+			var cursor = Vector2(c, r)
+			move_cell($Circuit, cursor + offset_src, cursor + offset_dst)
+			move_cell($Mirrors, cursor + offset_src, cursor + offset_dst)
+			
+func move_cell(tilemap: TileMap, src: Vector2, dst: Vector2):
+	src = to_local_cell(src)
+	dst = to_local_cell(dst)
+	tilemap.set_cellv(
+		dst,
+		tilemap.get_cellv(src),
+		tilemap.is_cell_x_flipped(src.x, src.y),
+		tilemap.is_cell_y_flipped(src.x, src.y),
+		tilemap.is_cell_transposed(src.x, src.y)
+	)
+	tilemap.set_cellv(src, -1)
 
 func _on_Mirrors_updated_mirrors():
 	emit_signal("updated")
