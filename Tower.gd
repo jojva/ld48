@@ -2,9 +2,9 @@ extends Node2D
 
 signal game_won
 
-const START_X = 0
+const START_X = 2
 const START_Y = 0
-const NB_LEVELS = 2
+const NB_LEVELS = 1
 var TOTAL_ROWS = Constants.ROWS * NB_LEVELS
 
 enum Directions {
