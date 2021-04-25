@@ -5,7 +5,7 @@ signal game_won
 const START_X = 0
 const START_Y = 0
 const NB_LEVELS = 2
-var TOTAL_ROWS = Level.ROWS * NB_LEVELS
+var TOTAL_ROWS = Constants.ROWS * NB_LEVELS
 
 enum Directions {
 	RIGHT,
@@ -59,10 +59,10 @@ func _on_Level_updated():
 func update_light():
 	var tile_light = {}
 	for r in range(TOTAL_ROWS):
-		for c in range(Level.COLS * 4):
+		for c in range(Constants.COLS * 4):
 			tile_light[Vector2(c, r)] = [false, false, false, false]
 	var direction = Directions.DOWN
-	var pos = Vector2(START_X + Level.COLS * light_source_side, START_Y)
+	var pos = Vector2(START_X + Constants.COLS * light_source_side, START_Y)
 	while direction != -1 and pos.y >= 0 and pos.y < TOTAL_ROWS:
 		var level = get_level(pos)
 		var res = level.propagate_light(pos, direction)
@@ -72,19 +72,19 @@ func update_light():
 			tile_light[pos][direction] = true
 		pos = step(pos, direction)
 	for r in range(TOTAL_ROWS):
-		for c in range(Level.COLS * 4):
+		for c in range(Constants.COLS * 4):
 			$Light.update_cell(c, r, tile_light[Vector2(c, r)])
 	if pos.y >= TOTAL_ROWS:
 		emit_signal("game_won")
 
 
 func get_level(pos):
-	return get_node("Level" + str(int(pos.y / Level.ROWS)))
+	return get_node("Level" + str(int(pos.y / Constants.ROWS)))
 
 
 func step(pos, direction):
 	var new_pos = pos + directions_vec[direction]
-	new_pos.x = int(new_pos.x + Level.COLS * 4) % (Level.COLS * 4)
+	new_pos.x = int(new_pos.x + Constants.COLS * 4) % (Constants.COLS * 4)
 	return new_pos
 
 

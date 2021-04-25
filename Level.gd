@@ -5,10 +5,6 @@ class_name Level
 signal updated
 
 
-const ROWS = 5
-const COLS = 5
-
-
 const light_input = [
 	[true, true, true, true], # Plus
 	[true, true, true, false], # Tee T
@@ -64,22 +60,22 @@ func propagate_light(pos, direction):
 
 func to_local_cell(pos):
 	pos.x -= position.x / $Circuit.cell_size.x
-	pos.y = int(pos.y) % ROWS
+	pos.y = int(pos.y) % Constants.ROWS
 	return pos
 
 
 func shift(direction):
-	position.x += direction * COLS * $Circuit.cell_size.x
+	position.x += direction * Constants.COLS * $Circuit.cell_size.x
 	var offset_src
 	var offset_dst
 	if direction > 0:
 		offset_dst = Vector2(0, 0)
-		offset_src = Vector2(COLS * 4, 0)
+		offset_src = Vector2(Constants.COLS * 4, 0)
 	else:
-		offset_src = Vector2(-COLS, 0)
-		offset_dst =Vector2(COLS * 3, 0)
-	for r in range(ROWS):
-		for c in range(COLS):
+		offset_src = Vector2(-Constants.COLS, 0)
+		offset_dst =Vector2(Constants.COLS * 3, 0)
+	for r in range(Constants.ROWS):
+		for c in range(Constants.COLS):
 			var cursor = Vector2(c, r)
 			move_cell($Circuit, cursor + offset_src, cursor + offset_dst)
 			move_cell($Mirrors, cursor + offset_src, cursor + offset_dst)

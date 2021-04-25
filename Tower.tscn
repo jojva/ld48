@@ -234,6 +234,10 @@
 [node name="Tower" type="Node2D"]
 scale = Vector2( 4, 4 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [ 639.865 ]
+}
 
 [node name="Level0" parent="." instance=ExtResource( 4 )]
 
