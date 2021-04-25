@@ -33,9 +33,9 @@ func _input(e):
 	var moved = false
 	var lvl = get_node("Level" + str(current_level))
 	if e.is_action_pressed("ui_up"):
-		current_level = min(0, current_level - 1)
+		current_level = max(0, current_level - 1)
 	if e.is_action_pressed("ui_down"):
-		current_level = max(NB_LEVELS - 1, current_level + 1)
+		current_level = min(NB_LEVELS - 1, current_level + 1)
 	if e.is_action_pressed("ui_left"):
 		lvl.shift(1)
 		if current_level == 0:
