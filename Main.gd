@@ -2,6 +2,7 @@ extends Node2D
 
 
 var current_face = 0
+var level_window = 0
 
 
 func _ready():
@@ -12,6 +13,17 @@ func _ready():
 
 
 func _input(e):
+	var tower = $ViewportContainer/Viewport/Tower
+	if e.is_action_pressed("ui_up"):
+		tower.current_level = max(0, tower.current_level - 1)
+		if tower.current_level < level_window:
+			level_window -= 1
+			tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * $ViewportContainer/Viewport/Tower.scale.y
+	if e.is_action_pressed("ui_down"):
+		tower.current_level = min(tower.nb_levels() - 1, tower.current_level + 1)
+		if tower.current_level > level_window + 1:
+			level_window += 1
+			tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * $ViewportContainer/Viewport/Tower.scale.y
 	if e.is_action_pressed("ui_look_left"):
 		look_elsewhere(1)
 	if e.is_action_pressed("ui_look_right"):

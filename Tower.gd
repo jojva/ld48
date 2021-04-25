@@ -4,8 +4,7 @@ signal game_won
 
 const START_X = 2
 const START_Y = 0
-const NB_LEVELS = 2
-var TOTAL_ROWS = Constants.ROWS * NB_LEVELS
+var TOTAL_ROWS = -42
 
 enum Directions {
 	RIGHT,
@@ -26,16 +25,13 @@ var current_level = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	TOTAL_ROWS = Constants.ROWS * nb_levels()
 	update_light()
 
 
 func _input(e):
 	var moved = false
 	var lvl = get_node("Level" + str(current_level))
-	if e.is_action_pressed("ui_up"):
-		current_level = max(0, current_level - 1)
-	if e.is_action_pressed("ui_down"):
-		current_level = min(NB_LEVELS - 1, current_level + 1)
 	if e.is_action_pressed("ui_left"):
 		lvl.shift(1)
 		if current_level == 0:
@@ -54,6 +50,15 @@ func _input(e):
 
 func _on_Level_updated():
 	update_light()
+
+
+func nb_levels():
+	var count = 0
+	for child in get_children():
+		if "Level" in child.name:
+			count += 1
+	print(count)
+	return count
 
 
 func update_light():
