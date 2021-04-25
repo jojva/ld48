@@ -7,7 +7,7 @@ extends TileMap
 
 
 signal tile_clicked(pos)
-signal tile_clicked_everything(pos)
+
 enum CircuitTile {
 	Empty = -1,
 	Plus,
