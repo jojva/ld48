@@ -4,7 +4,7 @@ signal game_won
 
 const START_X = 2
 const START_Y = 0
-const NB_LEVELS = 1
+const NB_LEVELS = 2
 var TOTAL_ROWS = Constants.ROWS * NB_LEVELS
 
 enum Directions {

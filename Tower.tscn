@@ -244,6 +244,12 @@ __meta__ = {
 [node name="Circuit" parent="Level0" index="0"]
 tile_data = PoolIntArray( 2, -1610612733, 0, 65538, -1610612733, 0, 131072, 3, 0, 131074, 2, 0, 131075, 3, 0, 131076, 3, 0, 131077, 3, 0, 131078, 3, 0, 131079, 3, 0, 131080, 3, 0, 131081, 3, 0, 131082, 3, 0, 131083, 3, 0, 131084, 1, 0, 131085, 3, 0, 131086, 3, 0, 131087, 3, 0, 131088, 3, 0, 131089, 3, 0, 131090, 3, 0, 131091, 3, 0, 196620, -1610612733, 0, 262156, -1610612733, 0 )
 
+[node name="Level1" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 160 )
+
+[node name="Circuit" parent="Level1" index="0"]
+tile_data = PoolIntArray( 2, -1610612733, 0, 65538, -1610612733, 0, 131072, 3, 0, 131074, 2, 0, 131075, 3, 0, 131076, 3, 0, 131077, 3, 0, 131078, 3, 0, 131079, 3, 0, 131080, 3, 0, 131081, 3, 0, 131082, 3, 0, 131083, 3, 0, 131084, 1, 0, 131085, 3, 0, 131086, 3, 0, 131087, 3, 0, 131088, 3, 0, 131089, 3, 0, 131090, 3, 0, 131091, 3, 0, 196620, -1610612733, 0, 262156, -1610612733, 0 )
+
 [node name="Light" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
@@ -253,5 +259,7 @@ script = ExtResource( 1 )
 
 [connection signal="game_won" from="." to="." method="_on_Main_game_won"]
 [connection signal="updated" from="Level0" to="." method="_on_Level_updated"]
+[connection signal="updated" from="Level1" to="." method="_on_Level_updated"]
 
 [editable path="Level0"]
+[editable path="Level1"]
