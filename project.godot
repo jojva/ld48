@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Directions",
+"language": "GDScript",
+"path": "res://Directions.gd"
+}, {
+"base": "Node2D",
+"class": "Level",
+"language": "GDScript",
+"path": "res://Level.gd"
+} ]
+_global_script_class_icons={
+"Directions": "",
+"Level": ""
+}
+
 [application]
 
 config/name="Pyramid"
