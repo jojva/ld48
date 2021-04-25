@@ -1,5 +1,7 @@
 extends Node2D
 
+signal game_won
+
 const START_X = 0
 const START_Y = 0
 const NB_LEVELS = 2
@@ -72,6 +74,8 @@ func update_light():
 	for r in range(TOTAL_ROWS):
 		for c in range(Level.COLS * 4):
 			$Light.update_cell(c, r, tile_light[Vector2(c, r)])
+	if pos.y >= TOTAL_ROWS:
+		emit_signal("game_won")
 
 
 func get_level(pos):
@@ -82,3 +86,7 @@ func step(pos, direction):
 	var new_pos = pos + directions_vec[direction]
 	new_pos.x = int(new_pos.x + Level.COLS * 4) % (Level.COLS * 4)
 	return new_pos
+
+
+func _on_Main_game_won():
+	print("gagné")

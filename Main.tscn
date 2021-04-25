@@ -253,6 +253,7 @@ collision_layer = 7
 format = 1
 script = ExtResource( 2 )
 
+[connection signal="game_won" from="." to="." method="_on_Main_game_won"]
 [connection signal="updated" from="Level0" to="." method="_on_Level_updated"]
 [connection signal="updated" from="Level1" to="." method="_on_Level_updated"]
 
