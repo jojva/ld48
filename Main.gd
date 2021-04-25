@@ -2,7 +2,7 @@ extends Node2D
 
 const START_X = 0
 const START_Y = 0
-const NB_LEVELS = 1
+const NB_LEVELS = 2
 var TOTAL_ROWS = Level.ROWS * NB_LEVELS
 
 enum Directions {
