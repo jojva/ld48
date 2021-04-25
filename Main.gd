@@ -20,6 +20,7 @@ const directions_vec = [
 ]
 
 var light_source_side = 0
+var current_level = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,16 +29,24 @@ func _ready():
 
 func _input(e):
 	var moved = false
+	var lvl = get_node("Level" + str(current_level))
+	if e.is_action_pressed("ui_up"):
+		current_level = min(0, current_level - 1)
+	if e.is_action_pressed("ui_down"):
+		current_level = max(NB_LEVELS - 1, current_level + 1)
 	if e.is_action_pressed("ui_left"):
-		$Level0.shift(1)
-		light_source_side += 1
+		lvl.shift(1)
+		if current_level == 0:
+			light_source_side += 1
 		moved = true
 	if e.is_action_pressed("ui_right"):
-		$Level0.shift(-1)
-		light_source_side += 3
+		lvl.shift(-1)
+		if current_level == 0:
+			light_source_side += 3
 		moved = true
 	if moved:
-		light_source_side %= 4
+		if current_level == 0:
+			light_source_side %= 4
 		update_light()
 
 
