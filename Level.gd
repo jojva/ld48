@@ -78,6 +78,7 @@ func shift(direction):
 	for r in range(Constants.ROWS):
 		for c in range(Constants.COLS):
 			var cursor = Vector2(c, r)
+			move_cell($Wall, cursor + offset_src, cursor + offset_dst)
 			move_cell($Circuit, cursor + offset_src, cursor + offset_dst)
 			move_cell($Mirrors, cursor + offset_src, cursor + offset_dst)
 			
