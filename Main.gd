@@ -35,11 +35,11 @@ func _input(e):
 func look_up_down(direction):
 	tower.current_level += direction
 	tower.current_level = clamp(tower.current_level, 0, tower.nb_levels() - 1)
-	if (direction == -1 and tower.current_level < level_window)	or (direction ==  1 and tower.current_level > level_window + 1):
+	if (direction == -1 and tower.current_level < level_window) or (direction ==  1 and tower.current_level > level_window + 1):
 		level_window += direction
 		tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
 		update_level_labels()
-	highlighted_level.rect_position.y = viewport_container.margin_top + (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
+	highlighted_level.rect_position.y = viewport_container.margin_top + (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y + 2
 
 
 func look_left_right(direction):
