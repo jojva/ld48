@@ -28,24 +28,20 @@ func _ready():
 	TOTAL_ROWS = Constants.ROWS * nb_levels()
 	update_light()
 
-
-func _input(e):
-	var moved = false
+func shift_left_right(direction):
 	var lvl = get_node("Level" + str(current_level))
+	lvl.shift(direction)
+	if current_level == 0:
+		light_source_side = (light_source_side + direction + 4) % 4
+	update_light()
+
+
+	
+func _input(e):
 	if e.is_action_pressed("ui_left"):
-		lvl.shift(1)
-		if current_level == 0:
-			light_source_side += 1
-		moved = true
+		shift_left_right(-1)
 	if e.is_action_pressed("ui_right"):
-		lvl.shift(-1)
-		if current_level == 0:
-			light_source_side += 3
-		moved = true
-	if moved:
-		if current_level == 0:
-			light_source_side %= 4
-		update_light()
+		shift_left_right(1)
 
 
 func _on_Level_updated():
