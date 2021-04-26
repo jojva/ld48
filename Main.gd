@@ -18,8 +18,7 @@ func _ready():
 	viewport_container.margin_top = 96
 	viewport.size = Vector2(320, 640)
 	tower.scale = Vector2(2, 2)
-	level_labels.get_node("TopLevel").text = str(level_window)
-	level_labels.get_node("BottomLevel").text = str(level_window + 1)
+	update_level_labels()
 
 
 func _input(e):
@@ -39,8 +38,7 @@ func look_up_down(direction):
 	if (direction == -1 and tower.current_level < level_window)	or (direction ==  1 and tower.current_level > level_window + 1):
 		level_window += direction
 		tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
-		level_labels.get_node("TopLevel").text = str(level_window)
-		level_labels.get_node("BottomLevel").text = str(level_window + 1)
+		update_level_labels()
 	highlighted_level.rect_position.y = viewport_container.margin_top + (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
 
 
@@ -48,6 +46,11 @@ func look_left_right(direction):
 	current_face = (current_face + direction + 4) % 4
 	tower.position.x = - current_face * Constants.COLS * Constants.CELL_SIZE * tower.scale.x
 	eye.set_rotation(current_face * PI / 2)
+
+
+func update_level_labels():
+	level_labels.get_node("TopLevel").text = str(level_window + 1)
+	level_labels.get_node("BottomLevel").text = str(level_window + 2)
 
 
 func _on_TurnLeft_pressed():
