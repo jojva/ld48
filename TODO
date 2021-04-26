@@ -1,0 +1,11 @@
+* supprimer print (sauf si ils ne s'affichent pas hors DEBUG)
+
+* Boutons
+- shift left
+- shift right
+- look left
+- look right
+- down
+- up
+
+* écran victoire
