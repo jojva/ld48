@@ -7,7 +7,7 @@ onready var viewport = viewport_container.get_node("Viewport")
 onready var tower = viewport.get_node("Tower")
 onready var level_labels = game.get_node("LevelLabels")
 onready var highlighted_level = viewport.get_node("HighlightedLevel")
-onready var eye = game.get_node("Container2/Eye")
+onready var eye = game.get_node("VBoxContainer/Eye")
 
 var current_face = 0
 var level_window = 0
