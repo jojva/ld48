@@ -2,11 +2,11 @@ extends Node2D
 
 
 onready var game = $HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer
-onready var viewport_container = game.get_node("ViewportContainer")
+onready var viewport_container = game.get_node("Container/Node2D")
 onready var viewport = viewport_container.get_node("Viewport")
-onready var tower = viewport.get_node("Tower")
+onready var tower = viewport_container.get_node("Tower")
 onready var level_labels = game.get_node("LevelLabels")
-onready var highlighted_level = viewport.get_node("HighlightedLevel")
+onready var highlighted_level = viewport_container.get_node("HighlightedLevel")
 onready var eye = game.get_node("VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer/HBoxContainer/Eye")
 
 var current_face = 0
@@ -14,10 +14,10 @@ var level_window = 0
 
 
 func _ready():
-	viewport_container.margin_left = 96
-	viewport_container.margin_top = 96
-	viewport.size = Vector2(320, 640)
-	tower.scale = Vector2(2, 2)
+	#viewport_container.margin_left = 96
+	#viewport_container.margin_top = 96
+	#viewport.size = Vector2(320, 640)
+	#tower.scale = Vector2(2, 2)
 	update_level_labels()
 
 
@@ -39,7 +39,7 @@ func look_up_down(direction):
 		level_window += direction
 		tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
 		update_level_labels()
-	highlighted_level.rect_position.y = viewport_container.margin_top + (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y + 2
+	highlighted_level.rect_position.y = (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y + 2
 
 
 func look_left_right(direction):
@@ -54,12 +54,11 @@ func update_level_labels():
 
 
 func _on_TurnLeft_pressed():
-	pass # Replace with function body.
+	look_left_right(-1)
 
 
 func _on_TurnRight_pressed():
-	print('yo')
-	pass # Replace with function body.
+	look_left_right(1)
 
 
 func _on_GoUp_pressed():
