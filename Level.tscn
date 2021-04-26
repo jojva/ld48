@@ -7,7 +7,7 @@
 [ext_resource path="res://Circuit.gd" type="Script" id=5]
 [ext_resource path="res://wall.png" type="Texture" id=6]
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="TileSet" id=1]
 0/name = "wall.png 0"
 0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
@@ -37,7 +37,7 @@
 1/shapes = [  ]
 1/z_index = 0
 
-[sub_resource type="TileSet" id=1]
+[sub_resource type="TileSet" id=2]
 0/name = "sprites.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -95,7 +95,7 @@
 3/shapes = [  ]
 3/z_index = 0
 
-[sub_resource type="TileSet" id=2]
+[sub_resource type="TileSet" id=3]
 0/name = "mirror.png 0"
 0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
@@ -115,25 +115,32 @@
 script = ExtResource( 3 )
 
 [node name="Wall" type="TileMap" parent="."]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 196608, 1, 0, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0 )
 
 [node name="Circuit" type="TileMap" parent="."]
-tile_set = SubResource( 1 )
+tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 7
 format = 1
 script = ExtResource( 5 )
 
 [node name="Mirrors" type="TileMap" parent="."]
-tile_set = SubResource( 2 )
+tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 7
 format = 1
 tile_data = PoolIntArray( 3, -1610612733, 0, 65539, -1610612733, 0, 131072, 1610612739, 0, 131073, 1610612738, 0, 131075, 2, 0, 131076, 1610612739, 0, 131077, 1610612739, 0, 131078, 1610612739, 0, 131079, 1610612739, 0, 131080, 1610612739, 0, 131081, 1610612739, 0, 131082, 1610612739, 0, 131083, 1610612739, 0, 131085, 1610612739, 0, 131086, 1610612739, 0, 131087, 1610612739, 0, 131088, 1610612739, 0, 131089, 1610612739, 0, 131090, 1610612739, 0, 131091, 1610612739, 0, 196609, -1610612733, 0, 196620, -1610612733, 0, 262145, -1610612733, 0, 262156, -1610612733, 0 )
 script = ExtResource( 4 )
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+margin_right = 640.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="tile_clicked" from="Circuit" to="Mirrors" method="_on_Circuit_tile_clicked"]
 [connection signal="updated_mirrors" from="Mirrors" to="." method="_on_Mirrors_updated_mirrors"]
