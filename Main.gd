@@ -7,7 +7,7 @@ onready var viewport = viewport_container.get_node("Viewport")
 onready var tower = viewport.get_node("Tower")
 onready var level_labels = game.get_node("LevelLabels")
 onready var highlighted_level = viewport.get_node("HighlightedLevel")
-onready var eye = game.get_node("VBoxContainer/Eye")
+onready var eye = game.get_node("VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer/HBoxContainer/Eye")
 
 var current_face = 0
 var level_window = 0
@@ -47,7 +47,7 @@ func look_up_down(direction):
 func look_left_right(direction):
 	current_face = (current_face + direction + 4) % 4
 	tower.position.x = - current_face * Constants.COLS * Constants.CELL_SIZE * tower.scale.x
-	eye.rotate(direction * PI / 2)
+	eye.set_rotation(current_face * PI / 2)
 
 
 func _on_TurnLeft_pressed():
