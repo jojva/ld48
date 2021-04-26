@@ -7,6 +7,8 @@ onready var tower = container.get_node("Tower")
 onready var level_labels = game.get_node("LevelLabels")
 onready var highlighted_level = container.get_node("HighlightedLevel")
 onready var eye = game.get_node("VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer/HBoxContainer/Eye")
+onready var winner = game.get_node("VBoxContainer/Winner")
+onready var timer = game.get_node("VBoxContainer/Timer")
 
 var current_face = 0
 var level_window = 0
@@ -70,3 +72,14 @@ func _on_GoDown_pressed():
 
 func _on_ShiftRight_pressed():
 	tower.shift_left_right(1)
+
+
+func _on_Timer_timeout():
+	if winner.text == "WINNER":
+		winner.text = "winner"
+	else:
+		winner.text = "WINNER"
+
+
+func _on_Tower_game_won():
+	winner.show()

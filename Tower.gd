@@ -87,7 +87,3 @@ func step(pos, direction):
 	var new_pos = pos + directions_vec[direction]
 	new_pos.x = int(new_pos.x + Constants.COLS * 4) % (Constants.COLS * 4)
 	return new_pos
-
-
-func _on_Main_game_won():
-	print("gagné")
