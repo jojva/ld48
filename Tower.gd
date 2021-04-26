@@ -53,7 +53,6 @@ func nb_levels():
 	for child in get_children():
 		if "Level" in child.name:
 			count += 1
-	print(count)
 	return count
 
 

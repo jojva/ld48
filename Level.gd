@@ -65,7 +65,6 @@ func to_local_cell(pos):
 
 
 func shift(direction):
-	print("shifting")
 	position.x += direction * Constants.COLS * $Circuit.cell_size.x
 	var offset_src
 	var offset_dst
