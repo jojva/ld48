@@ -20,9 +20,9 @@ func _input(e):
 	if e.is_action_pressed("ui_down"):
 		look_up_down(1)
 	if e.is_action_pressed("ui_look_left"):
-		look_left_right(1)
-	if e.is_action_pressed("ui_look_right"):
 		look_left_right(-1)
+	if e.is_action_pressed("ui_look_right"):
+		look_left_right(1)
 
 
 func look_up_down(direction):
