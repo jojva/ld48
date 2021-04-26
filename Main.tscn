@@ -28,12 +28,6 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="DynamicFont" id=4]
-size = 64
-outline_size = 2
-outline_color = Color( 0.203922, 0.0666667, 0.223529, 1 )
-font_data = ExtResource( 12 )
-
 [sub_resource type="DynamicFont" id=2]
 size = 64
 outline_size = 2
@@ -41,6 +35,12 @@ outline_color = Color( 0.203922, 0.0666667, 0.223529, 1 )
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 64
+outline_size = 2
+outline_color = Color( 0.203922, 0.0666667, 0.223529, 1 )
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=4]
 size = 64
 outline_size = 2
 outline_color = Color( 0.203922, 0.0666667, 0.223529, 1 )
@@ -158,7 +158,7 @@ margin_right = 123.0
 margin_bottom = 322.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "1"
 align = 1
 valign = 1
@@ -172,7 +172,7 @@ margin_right = 123.0
 margin_bottom = 648.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "1"
 align = 1
 valign = 1
@@ -190,7 +190,7 @@ mouse_filter = 0
 margin_right = 297.0
 margin_bottom = 78.0
 size_flags_vertical = 5
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 custom_constants/shadow_offset_x = 0
 text = "minelight"
 align = 1
