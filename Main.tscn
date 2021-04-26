@@ -233,6 +233,7 @@ margin_left = 82.0
 margin_right = 146.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 32, 32 )
 texture = ExtResource( 3 )
 expand = true
 
