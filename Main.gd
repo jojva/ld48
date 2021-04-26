@@ -58,6 +58,7 @@ func _on_TurnLeft_pressed():
 
 
 func _on_TurnRight_pressed():
+	print('yo')
 	pass # Replace with function body.
 
 
