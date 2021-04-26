@@ -338,3 +338,11 @@ expand = true
 [connection signal="pressed" from="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/ShiftLeft" to="." method="_on_ShiftLeft_pressed"]
 [connection signal="pressed" from="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/GoDown" to="." method="_on_GoDown_pressed"]
 [connection signal="pressed" from="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/ShiftRight" to="." method="_on_ShiftRight_pressed"]
+
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower"]
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower/Level0"]
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower/Level1"]
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower/Level2"]
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower/Level3"]
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower/Level4"]
+[editable path="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D/Tower/Level5"]
