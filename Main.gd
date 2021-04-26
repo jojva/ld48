@@ -1,17 +1,25 @@
 extends Node2D
 
 
+onready var game = $HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer
+onready var viewport_container = game.get_node("ViewportContainer")
+onready var viewport = viewport_container.get_node("Viewport")
+onready var tower = viewport.get_node("Tower")
+onready var level_labels = game.get_node("LevelLabels")
+onready var highlighted_level = viewport.get_node("HighlightedLevel")
+onready var eye = game.get_node("Container2/Eye")
+
 var current_face = 0
 var level_window = 0
 
 
 func _ready():
-	$ViewportContainer.margin_left = 100
-	$ViewportContainer.margin_top = 100
-	$ViewportContainer/Viewport.size = Vector2(320, 640)
-	$ViewportContainer/Viewport/Tower.scale = Vector2(2, 2)
-	$HUD/LevelLabels/TopLevel.text = str(level_window)
-	$HUD/LevelLabels/BottomLevel.text = str(level_window + 1)
+	viewport_container.margin_left = 96
+	viewport_container.margin_top = 96
+	viewport.size = Vector2(320, 640)
+	tower.scale = Vector2(2, 2)
+	level_labels.get_node("TopLevel").text = str(level_window)
+	level_labels.get_node("BottomLevel").text = str(level_window + 1)
 
 
 func _input(e):
@@ -26,19 +34,17 @@ func _input(e):
 
 
 func look_up_down(direction):
-	var tower = $ViewportContainer/Viewport/Tower
 	tower.current_level += direction
 	tower.current_level = clamp(tower.current_level, 0, tower.nb_levels() - 1)
 	if (direction == -1 and tower.current_level < level_window)	or (direction ==  1 and tower.current_level > level_window + 1):
 		level_window += direction
-		tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * $ViewportContainer/Viewport/Tower.scale.y
-		$HUD/LevelLabels/TopLevel.text = str(level_window)
-		$HUD/LevelLabels/BottomLevel.text = str(level_window + 1)
-	$HUD/HighlightedLevel.rect_position.y = $ViewportContainer.margin_top + (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * $ViewportContainer/Viewport/Tower.scale.y
+		tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
+		level_labels.get_node("TopLevel").text = str(level_window)
+		level_labels.get_node("BottomLevel").text = str(level_window + 1)
+	highlighted_level.rect_position.y = viewport_container.margin_top + (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
 
 
 func look_left_right(direction):
 	current_face = (current_face + direction + 4) % 4
-	$ViewportContainer/Viewport/Tower.position.x = \
-		- current_face * Constants.COLS * Constants.CELL_SIZE * $ViewportContainer/Viewport/Tower.scale.x
-	$HUD/Eye.rotate(direction * PI / 2)
+	tower.position.x = - current_face * Constants.COLS * Constants.CELL_SIZE * tower.scale.x
+	eye.rotate(direction * PI / 2)
