@@ -41,7 +41,8 @@ func look_up_down(direction):
 
 func look_left_right(direction):
 	current_face = (current_face + direction + 4) % 4
-	tower.position.x = - current_face * Constants.COLS * Constants.CELL_SIZE * tower.scale.x
+	#tower.position.x = - current_face * Constants.COLS * Constants.CELL_SIZE * tower.scale.x
+	tower.look_left_right(direction)
 	eye.set_rotation(current_face * PI / 2)
 
 

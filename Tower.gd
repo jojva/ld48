@@ -20,20 +20,50 @@ const directions_vec = [
 	Vector2(0, 1),
 ]
 
-var light_source_side = 0
+var light_source_side = 1
+var next_light_source_side = 1
 var current_level = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	TOTAL_ROWS = Constants.ROWS * nb_levels()
 	update_light()
-
+	
+func look_left_right(direction):
+	direction *= -1
+	if $Tween.is_active() or $LookTween.is_active():
+		return
+	var shift = direction * Constants.CELL_SIZE * Constants.COLS
+	var old_x = null
+	var new_x = null
+	var x_computed = false
+	for child in get_children():
+		if "Level" in child.name:
+			child.rollover(direction)
+			if not x_computed:
+				old_x = child.position.x
+				new_x = old_x + shift
+				x_computed = true
+			$LookTween.interpolate_property(child,
+				'position:x',
+				old_x,
+				new_x,
+				0.2)
+	$LookTween.interpolate_property($Light,
+		'position:x',
+		old_x,
+		new_x,
+		0.2)
+	
+	next_light_source_side = (light_source_side + direction + 4) % 4
+	$LookTween.start()
+	
 func shift_left_right(direction):
 	var lvl = get_node("Level" + str(current_level))
 	lvl.shift(direction)
 	if current_level == 0:
-		light_source_side = (light_source_side + direction + 4) % 4
-	update_light()
+		next_light_source_side = (light_source_side + direction + 4) % 4
+	#update_light()
 
 
 	
@@ -46,6 +76,12 @@ func _input(e):
 
 func _on_Level_updated():
 	update_light()
+
+
+func _on_Tween_tween_all_completed():
+	light_source_side = next_light_source_side
+	update_light()
+	$Light.show()
 
 
 func nb_levels():
@@ -86,3 +122,13 @@ func step(pos, direction):
 	var new_pos = pos + directions_vec[direction]
 	new_pos.x = int(new_pos.x + Constants.COLS * 4) % (Constants.COLS * 4)
 	return new_pos
+
+
+
+func _on_Tween_tween_started(object, key):
+	$Light.hide()
+
+
+func _on_LookTween_tween_all_completed():
+	light_source_side = next_light_source_side
+	update_light()

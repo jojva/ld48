@@ -3,6 +3,7 @@ class_name Level
 
 
 signal updated
+var moving = false
 
 
 const light_input = [
@@ -62,24 +63,39 @@ func to_local_cell(pos):
 	pos.x -= position.x / $Circuit.cell_size.x
 	pos.y = int(pos.y) % Constants.ROWS
 	return pos
-
-
-func shift(direction):
-	position.x += direction * Constants.COLS * $Circuit.cell_size.x
+	
+func rollover(direction):
 	var offset_src
 	var offset_dst
 	if direction > 0:
-		offset_dst = Vector2(0, 0)
-		offset_src = Vector2(Constants.COLS * 4, 0)
+		offset_dst = Vector2(-1 * Constants.COLS, 0)
+		offset_src = Vector2(Constants.COLS * 3, 0)
 	else:
-		offset_src = Vector2(-Constants.COLS, 0)
-		offset_dst =Vector2(Constants.COLS * 3, 0)
+		offset_src = Vector2(0, 0)
+		offset_dst = Vector2(Constants.COLS * 4, 0)
+		
 	for r in range(Constants.ROWS):
 		for c in range(Constants.COLS):
 			var cursor = Vector2(c, r)
 			move_cell($Wall, cursor + offset_src, cursor + offset_dst)
 			move_cell($Circuit, cursor + offset_src, cursor + offset_dst)
 			move_cell($Mirrors, cursor + offset_src, cursor + offset_dst)
+
+const ANIMATION_DURATION = 0.6
+func shift(direction):
+	if moving:
+		return
+	rollover(direction)	
+	var new_position_x = position.x + direction * Constants.COLS * $Circuit.cell_size.x
+	var tween = get_node('../Tween')
+	tween.interpolate_property(self, 'position:x', position.x, new_position_x,
+							   ANIMATION_DURATION, Tween.TRANS_BACK, Tween.EASE_OUT)
+	tween.interpolate_callback(self, 0, 'set', 'moving', true)
+	tween.interpolate_callback(self, ANIMATION_DURATION, 'set', 'moving', false)
+	tween.start()
+
+func dafuq(arg):
+	print('dafuq', ' ', arg)
 			
 func move_cell(tilemap: TileMap, src: Vector2, dst: Vector2):
 	src = to_local_cell(src)
