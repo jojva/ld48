@@ -121,6 +121,7 @@ __meta__ = {
 margin_right = 320.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 320, 640 )
+rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -128,7 +129,8 @@ size_flags_vertical = 0
 [node name="Node2D" type="Node2D" parent="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container"]
 
 [node name="Tower" parent="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D" instance=ExtResource( 1 )]
-scale = Vector2( 1, 1 )
+position = Vector2( -320, 0 )
+scale = Vector2( 2, 2 )
 
 [node name="HighlightedLevel" type="ReferenceRect" parent="HUD/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Container/Node2D"]
 margin_left = 2.0

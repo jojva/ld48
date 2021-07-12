@@ -34,25 +34,20 @@ func look_left_right(direction):
 	if $Tween.is_active() or $LookTween.is_active():
 		return
 	var shift = direction * Constants.CELL_SIZE * Constants.COLS
-	var old_x = null
-	var new_x = null
 	var x_computed = false
 	for child in get_children():
 		if "Level" in child.name:
 			child.rollover(direction)
-			if not x_computed:
-				old_x = child.position.x
-				new_x = old_x + shift
-				x_computed = true
+			var old_x = child.position.x
 			$LookTween.interpolate_property(child,
 				'position:x',
 				old_x,
-				new_x,
+				old_x + shift,
 				0.2)
 	$LookTween.interpolate_property($Light,
 		'position:x',
-		old_x,
-		new_x,
+		$Light.position.x,
+		$Light.position.x + shift,
 		0.2)
 	
 	next_light_source_side = (light_source_side + direction + 4) % 4
