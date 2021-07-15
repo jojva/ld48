@@ -7,15 +7,16 @@ onready var tower = container.get_node("Tower")
 onready var level_labels = game.get_node("LevelLabels")
 onready var highlighted_level = container.get_node("HighlightedLevel")
 onready var eye = game.get_node("VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer/HBoxContainer/Eye")
+onready var perspective = game.get_node("VBoxContainer/CenterContainer3/VBoxContainer/CenterContainer3/Perspective")
 onready var winner = game.get_node("VBoxContainer/Winner")
 onready var timer = game.get_node("VBoxContainer/Timer")
-
 var current_face = 0
 var level_window = 0
 
 
 func _ready():
 	update_level_labels()
+	perspective.update_levels(0, 0, 0)
 
 
 func _input(e):
@@ -27,6 +28,8 @@ func _input(e):
 		look_left_right(-1)
 	if e.is_action_pressed("ui_look_right"):
 		look_left_right(1)
+	perspective.update_levels(current_face, level_window, tower.current_level)
+	
 
 
 func look_up_down(direction):
