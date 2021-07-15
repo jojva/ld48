@@ -31,14 +31,25 @@ func _input(e):
 	perspective.update_levels(current_face, level_window, tower.current_level)
 	
 
-
+const ANIMATION_DURATION = 0.5
 func look_up_down(direction):
+	if $Tween.is_active():
+		return
 	tower.current_level += direction
 	tower.current_level = clamp(tower.current_level, 0, tower.nb_levels() - 1)
 	if (direction == -1 and tower.current_level < level_window) or (direction ==  1 and tower.current_level > level_window + 1):
 		level_window += direction
-		tower.position.y = - level_window * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y
-		update_level_labels()
+		$Tween.interpolate_property(tower,
+			'position:y',
+			tower.position.y,
+			- level_window * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y,
+			ANIMATION_DURATION)
+		$Tween.interpolate_callback(level_labels, 0, "hide_children")
+		$Tween.interpolate_callback(tower, 0, "set", "moving", true)
+		$Tween.interpolate_callback(self, ANIMATION_DURATION, "update_level_labels")
+		$Tween.interpolate_callback(level_labels, ANIMATION_DURATION, "show_children")
+		$Tween.interpolate_callback(tower, ANIMATION_DURATION, "set", "moving", false)
+		$Tween.start()
 	highlighted_level.rect_position.y = (tower.current_level - level_window) * Constants.ROWS * Constants.CELL_SIZE * tower.scale.y + 2
 
 

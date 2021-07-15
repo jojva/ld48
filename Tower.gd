@@ -5,6 +5,7 @@ signal game_won
 const START_X = 2
 const START_Y = 0
 var TOTAL_ROWS = -42
+var moving
 
 enum Directions {
 	RIGHT,
@@ -54,6 +55,8 @@ func look_left_right(direction):
 	$LookTween.start()
 	
 func shift_left_right(direction):
+	if moving:
+		return
 	var lvl = get_node("Level" + str(current_level))
 	lvl.shift(direction)
 	if current_level == 0:
